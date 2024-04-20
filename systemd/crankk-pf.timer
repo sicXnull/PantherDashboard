@@ -1,0 +1,10 @@
+[Unit]
+Description=Runs LoRa Setup every minute
+
+[Timer]
+OnBootSec=30
+OnUnitActiveSec=1min
+Unit=crankk-pf.service
+
+[Install]
+WantedBy=timers.target
