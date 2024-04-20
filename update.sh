@@ -40,6 +40,7 @@ if id -nG admin | grep -qw "sudo"; then
     mkdir -p /var/dashboard/logs
     mkdir -p /etc/monitor-scripts
     mkdir -p /var/log/packet-forwarder/
+    mkdir -p /opt/panther-x2/miner_data/
 
     # Add the new services
     mkdir -p /var/dashboard/services
