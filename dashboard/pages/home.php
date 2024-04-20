@@ -1,5 +1,8 @@
 <?php
 $load = sys_getloadavg();
+$num_cores = shell_exec('nproc'); // Fetches the number of CPU cores
+$num_cores = intval($num_cores);  // Convert to integer
+
 $stats = @file_get_contents("/proc/meminfo");
 
 $stats = str_replace(array("\r\n", "\n\r", "\r"), "\n", $stats);
@@ -22,7 +25,9 @@ $pretty = array("LAN", "WLAN");
 
 $info['IP'] = str_replace($raw, $pretty, trim(file_get_contents("/var/dashboard/statuses/local-ip")));
 $info['ExternalIP'] = trim(file_get_contents("/var/dashboard/statuses/external-ip"));
-$info['CPU'] = $load[0];
+
+// Convert CPU load to a percentage for a multi-core system
+$info['CPU'] = round(($load[0] / $num_cores) * 100, 2) . "%";
 
 $pf = trim(file_get_contents("/var/dashboard/statuses/packet-forwarder"));
 $info['BT'] = trim(ucfirst(file_get_contents("/var/dashboard/statuses/bt")));
@@ -37,14 +42,14 @@ $info['PantherXVer'] = trim(file_get_contents("/var/dashboard/statuses/pantherx_
 
 if ($info['PantherXVer'] == 'X1')
 {
-	$diskfree = disk_free_space("/opt/miner_data") / 1073741824;
-	$disktotal = disk_total_space("/opt/miner_data") / 1073741824;
+    $diskfree = disk_free_space("/opt/miner_data") / 1073741824;
+    $disktotal = disk_total_space("/opt/miner_data") / 1073741824;
 }
 
 if ($info['PantherXVer'] == 'X2')
 {
-	$diskfree = disk_free_space("/opt/panther-x2/miner_data") / 1073741824;
-	$disktotal = disk_total_space("/opt/panther-x2/miner_data") / 1073741824;
+    $diskfree = disk_free_space("/opt/panther-x2/miner_data") / 1073741824;
+    $disktotal = disk_total_space("/opt/panther-x2/miner_data") / 1073741824;
 }
 
 $diskused = $disktotal - $diskfree;
@@ -52,11 +57,11 @@ $info['DiskUsage'] = round($diskused/$disktotal*100, 2)."%";
 
 if($pf > 0)
 {
-	$info['PF'] = $pf;
+    $info['PF'] = $pf;
 }
 else
 {
-	$info['PF'] = 'Disabled';
+    $info['PF'] = 'Disabled';
 }
 ?>
 <h1>Panther <?php echo $info['PantherXVer']; ?> Miner Dashboard</h1>
@@ -73,7 +78,6 @@ else
 <li>Timezone: <?php echo $info['Timezone']; ?></li>
 </ul>
 </div>
-
 <div id="toggle_buttons">
 <h2>Enable/disable Services</h2>
 <ul>
