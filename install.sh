@@ -27,7 +27,7 @@ else
       tar -xzf latest.tar.gz
       cd PantherDashboard-${VER}
       apt-get update
-      apt-get --assume-yes install nginx php-fpm php8.3-fpm ngrep gawk php-cli logrotate netcat jq
+      apt-get --assume-yes install nginx php-fpm php8.3-fpm ngrep gawk php-cli logrotate netcat-traditional jq
 
       # Remove it first if the /var/dashboard is invalid
       if test -e /var/dashboard; then
