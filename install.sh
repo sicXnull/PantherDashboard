@@ -48,6 +48,7 @@ else
        
       cp nginx/snippets/* /etc/nginx/snippets/
       cp nginx/default /etc/nginx/sites-enabled
+      cp settings/* /root/helium/overlay
     
       if ! test -f /var/dashboard/.htpasswd; then
         cp nginx/.htpasswd /var/dashboard/.htpasswd
