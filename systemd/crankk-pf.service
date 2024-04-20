@@ -1,0 +1,9 @@
+[Unit]
+Description=LoRa Setup Script Service
+
+[Service]
+Type=oneshot
+ExecStart=/etc/monitor-scripts/crankk-pf.sh
+
+[Install]
+WantedBy=multi-user.target
