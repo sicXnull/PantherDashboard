@@ -28,7 +28,7 @@ if id -nG admin | grep -qw "sudo"; then
 
     apt-get update
     # check php7.3-json, need to do it before php-fpm installation
-    if ! test -s /etc/php/7.3/mods-available/json.ini; then
+    if ! test -s /etc/php/8.3/mods-available/json.ini; then
       # Remove it if is corrupt, it will install with php-fpm
       apt-get --assume-yes purge php8.3-json
     fi
