@@ -46,6 +46,9 @@ echo 1193f56 > /var/dashboard/commit-hash
 
 ## Change Log ##
 
+- 0.2.32
+1. New Fork
+
 - 0.2.31
 1. Fix some hotspots no reward issue
 2. Fix display issue to witness logs
