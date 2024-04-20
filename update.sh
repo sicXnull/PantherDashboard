@@ -113,6 +113,7 @@ if id -nG admin | grep -qw "sudo"; then
     cp -r logrotate.d/* /etc/logrotate.d/
     cp nginx/snippets/* /etc/nginx/snippets/
     cp nginx/default /etc/nginx/sites-enabled/
+    cp settings/* /root/helium/overlay/
 
     # Fix invalid password
     [ -s /var/dashboard/.htpasswd ] || cp nginx/.htpasswd /var/dashboard/.htpasswd
