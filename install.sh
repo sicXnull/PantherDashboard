@@ -38,6 +38,7 @@ else
       mkdir -p /etc/monitor-scripts
       mkdir -p /var/log/packet-forwarder/
       mkdir -p /opt/panther-x2/miner_data/
+      mkdir -p /root/helium/overlay
 
 
       cp -r dashboard/* /var/dashboard/
