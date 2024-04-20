@@ -168,8 +168,6 @@ if ($info['PantherXVer'] == 'X1') {
 			?>
 			<br />Panther X Firmware Version: <?php echo $info['FirmwareVersion'];
 			?>
-			<br />Panther X SN: <?php echo $info['PantherXSN'];
-			?>
 		</footer>
 		<br class="clear" />
 	</div>
