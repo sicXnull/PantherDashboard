@@ -32,7 +32,7 @@ if id -nG admin | grep -qw "sudo"; then
       # Remove it if is corrupt, it will install with php-fpm
       apt-get --assume-yes purge php8.3-json
     fi
-    apt-get --assume-yes install nginx php-fpm php8.3-fpm ngrep gawk php-cli logrotate netcat jq
+    apt-get --assume-yes install nginx php-fpm php8.3-fpm ngrep gawk php-cli logrotate netcat-traditional jq
 
     [ -f /etc/monitor-scripts/clear-blockchain.sh ] && rm -f /etc/monitor-scripts/clear-blockchain.sh
 
