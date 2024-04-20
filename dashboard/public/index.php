@@ -154,7 +154,7 @@ if ($info['PantherXVer'] == 'X1') {
 		</section>
 
 		<footer>
-			<a href="https://github.com/Panther-X/PantherDashboard">Dashboard</a> Version: <?php echo $info['Version'];
+			<a href="https://github.com/sicXnull/PantherDashboard">Dashboard</a> Version: <?php echo $info['Version'];
 			if($info['Version'] != $info['Update'])
 			{
 				echo ' - <a href="/index.php?page=updatedashboard" title="Update Releases">Update Available - '.$info['Update'].'</a>';
