@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo pgrep lora_pkt_+ > /var/dashboard/statuses/packet-forwarder
+sudo cat /var/log/packet-forwarder/packet_forwarder.log > /var/dashboard/statuses/packet-forwarder
