@@ -69,6 +69,7 @@ main() {
     # Check if "crankk-pktfwd" Docker container is running
     if ! docker ps | grep -q "crankk-pktfwd"; then
         docker run --name crankk-pktfwd --privileged -d \
+	--restart always \
         -e REGION="$region" \
         -e MODEL="panther" \
         -e SPI_DEV_PATH="/dev/spidev3.0" \
