@@ -10,7 +10,21 @@ $info['MinerVersion'] = trim(file_get_contents('/var/dashboard/statuses/current_
 $info['LatestMinerVersion'] = trim(file_get_contents('/var/dashboard/statuses/latest_miner_version'));
 $info['PantherXVer'] = trim(file_get_contents("/var/dashboard/statuses/pantherx_ver"));
 $info['FirmwareVersion'] = trim(file_get_contents("/etc/ota_version"));
+
+// Reading IP addresses
+$ipAddresses = trim(file_get_contents("/var/dashboard/statuses/local-ip"));
+$lines = explode('/', $ipAddresses);
+foreach ($lines as $line) {
+    if (strpos($line, 'eth0:') !== false) {
+        $info['Eth0IP'] = trim(substr($line, strpos($line, ':') + 1));
+    }
+    if (strpos($line, 'wlan0:') !== false) {
+        $info['Wlan0IP'] = trim(substr($line, strpos($line, ':') + 1));
+    }
+}
+
 include('../pages/first-load.php');
+
 if (file_exists('/opt/panther-x2/data/SN')) {
     $info['PantherXSN'] = trim(file_get_contents("/opt/panther-x2/data/SN"));
 }
@@ -71,7 +85,12 @@ if ($info['PantherXVer'] == 'X1') {
 				<li <?php if($page == 'tools') { echo 'class="active_page"'; } ?>><a href="/?page=tools" title="Tools"><span class="icon-wrench"></span><span class="text">Tools</span></a></li>
 				<li <?php if($page == 'info') { echo 'class="active_page"'; } ?>><a href="/?page=info" title="Information"><span class="icon-info"></span><span class="text">Info</span></a></li>
 				<li <?php if($page == 'logs' || $page == 'minerloganalyzer' || $page == 'lorapacketforwarderanalyzer') { echo 'class="active_page"'; } ?>><a href="/?page=logs" title="Logs"><span class="icon-list"></span><span class="text">Logs</span></a></li>
-			</ul>
+			    	<li <?php if ($page == 'crankk') { echo 'class="active_page"'; } ?>>
+    				<a href="http://<?php echo (!empty($info['Eth0IP']) ? $info['Eth0IP'] : $info['Wlan0IP']); ?>:17080" title="Crankk">
+        			<img src="images/crankk-logo.png" alt="Crankk Logo" style="height:20px;"><span class="text">Crankk</span>
+    </a>
+</li>
+			
 
 		</nav>
 
@@ -168,6 +187,7 @@ if ($info['PantherXVer'] == 'X1') {
 			?>
 			<br />Panther X Firmware Version: <?php echo $info['FirmwareVersion'];
 			?>
+
 		</footer>
 		<br class="clear" />
 	</div>
