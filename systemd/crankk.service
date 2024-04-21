@@ -1,0 +1,9 @@
+[Unit]
+Description=Crankk Service
+
+[Service]
+Type=oneshot
+ExecStart=/etc/monitor-scripts/crankk.sh
+
+[Install]
+WantedBy=multi-user.target
