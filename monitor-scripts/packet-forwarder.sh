@@ -4,5 +4,5 @@
 if ! docker ps | grep -q "crankk-pktfwd"; then
     > /var/dashboard/statuses/packet-forwarder
 else
-    echo "enabled" > /var/dashboard/statuses/packet-forwarder
+    echo "1" > /var/dashboard/statuses/packet-forwarder
 fi
