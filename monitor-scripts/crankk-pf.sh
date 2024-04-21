@@ -70,6 +70,7 @@ main() {
     if ! docker ps | grep -q "crankk-pktfwd"; then
         docker run --name crankk-pktfwd --privileged -d \
 	--restart always \
+ 	--network host \
         -e REGION="$region" \
         -e MODEL="panther" \
         -e SPI_DEV_PATH="/dev/spidev3.0" \
