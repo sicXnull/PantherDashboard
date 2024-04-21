@@ -89,6 +89,8 @@ else
       systemctl daemon-reload
       systemctl enable packet-forwarder-sniffer.service
       systemctl start packet-forwarder-sniffer.service
+      systemctl stop lora-pkt-fwd.service
+      systemctl disable lora-pkt-fwd.service
 
       systemctl enable nginx
       systemctl restart nginx
