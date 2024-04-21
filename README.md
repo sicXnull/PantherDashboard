@@ -46,8 +46,11 @@ echo 1193f56 > /var/dashboard/commit-hash
 
 ## Change Log ##
 
-- 0.2.32
-1. New Fork
+- 0.2.32 New Fork
+1. Fix CPU Usage
+2. Various adjustments to monitor-scripts
+3. Use Crankk Packet Forwarder as default (faster)
+4. Add Crankk 
 
 - 0.2.31
 1. Fix some hotspots no reward issue
