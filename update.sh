@@ -4,7 +4,7 @@ sudo apt-get -f install --assume-yes
 if test -f /var/dashboard/branch; then
   BRANCH=`cat /var/dashboard/branch`
 else
-  BRANCH='main'
+  BRANCH='stock-firmware'
 fi
 
 if id -nG admin | grep -qw "sudo"; then
@@ -30,9 +30,9 @@ if id -nG admin | grep -qw "sudo"; then
     # check php7.3-json, need to do it before php-fpm installation
     if ! test -s /etc/php/8.1/mods-available/json.ini; then
       # Remove it if is corrupt, it will install with php-fpm
-      apt-get --assume-yes purge php8.1-json
+      apt-get --assume-yes purge php7.3-json
     fi
-    apt-get --assume-yes install nginx php-fpm php8.1-fpm ngrep gawk php-cli logrotate netcat jq
+    apt-get --assume-yes install nginx php-fpm php7.3-fpm ngrep gawk php-cli logrotate netcat jq
 
     [ -f /etc/monitor-scripts/clear-blockchain.sh ] && rm -f /etc/monitor-scripts/clear-blockchain.sh
 
