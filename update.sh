@@ -24,7 +24,7 @@ if id -nG admin | grep -qw "sudo"; then
   if test -s latest.tar.gz; then
     echo 'Extracting contents...' >> /var/dashboard/logs/dashboard-update.log
     tar -xzf latest.tar.gz
-    cd PantherDashboard-${VER}
+    cd dashboard_latest_ver
 
     apt-get update
     # check php7.3-json, need to do it before php-fpm installation
