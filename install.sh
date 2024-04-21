@@ -4,7 +4,7 @@ rm /tmp/latest.tar.gz
 if test -f /var/dashboard/branch; then
   BRANCH=`cat /var/dashboard/branch`
 else
-  BRANCH='main'
+  BRANCH='stock-firmware'
 fi
 
 if test -d /var/dashboard; then
@@ -27,7 +27,7 @@ else
       tar -xzf latest.tar.gz
       cd PantherDashboard-${VER}
       apt-get update
-      apt-get --assume-yes install nginx php-fpm php8.1-fpm ngrep gawk php-cli logrotate netcat jq
+      apt-get --assume-yes install nginx php-fpm php7.3-fpm ngrep gawk php-cli logrotate netcat jq
 
       # Remove it first if the /var/dashboard is invalid
       if test -e /var/dashboard; then
