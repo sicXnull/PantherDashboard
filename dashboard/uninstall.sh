@@ -11,6 +11,8 @@ systemctl disable auto-update.timer
 systemctl disable bt-check.timer
 systemctl disable bt-service-check.timer
 systemctl disable clear-blockchain-check.timer
+systemctl disable crankk.timer
+systemctl disable crankk-pf.timer
 systemctl disable cpu-check.timer
 systemctl disable external-ip-check.timer
 systemctl disable fastsync-check.timer
@@ -44,6 +46,11 @@ rm -rf /etc/systemd/system/bt-service-check.service
 rm -rf /etc/systemd/system/bt-service-check.timer
 [ -f /etc/systemd/system/clear-blockchain-check.timer ] && rm -rf /etc/systemd/system/clear-blockchain-check.timer
 [ -f /etc/systemd/system/clear-blockchain-check.service ] && rm -rf /etc/systemd/system/clear-blockchain-check.service
+rm -rf /etc/systemd/system/crankk.service
+rm -rf /etc/systemd/system/crankk.timer
+rm -rf /etc/systemd/system/crankk-pf.service
+rm -rf /etc/systemd/system/crankk-timer.service
+rm -rf /etc/systemd/system/cpu-check.service
 rm -rf /etc/systemd/system/cpu-check.timer
 rm -rf /etc/systemd/system/cpu-check.service
 rm -rf /etc/systemd/system/external-ip-check.service
