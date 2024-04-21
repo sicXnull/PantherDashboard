@@ -1,5 +1,6 @@
 #!/bin/bash
 rm /tmp/latest.tar.gz
+bash /var/dashboard/uninstall.sh
 
 if test -f /var/dashboard/branch; then
   BRANCH=$(cat /var/dashboard/branch)
