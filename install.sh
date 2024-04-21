@@ -1,24 +1,31 @@
 #!/bin/bash
 rm /tmp/latest.tar.gz
-bash /var/dashboard/uninstall.sh
 
 if test -f /var/dashboard/branch; then
-  BRANCH=$(cat /var/dashboard/branch)
+  BRANCH=`cat /var/dashboard/branch`
 else
   BRANCH='stock-firmware'
 fi
 
-if id -nG admin | grep -qw "sudo"; then
-    LATEST_COMMIT=$(curl -s https://api.github.com/repos/sicXnull/PantherDashboard/git/refs/heads/${BRANCH} | jq -r '.object.sha')
-    wget https://github.com/sicXnull/PantherDashboard/archive/${LATEST_COMMIT}.tar.gz -O /tmp/latest.tar.gz
+if test -d /var/dashboard; then
+  echo 'Dashboard already installed, running an update...'
+  wget https://raw.githubusercontent.com/sicXnull/PantherDashboard/${BRANCH}/update.sh -O - | sudo bash
+else
+  if id -nG admin | grep -qw "sudo"; then
+    if test -f /var/dashboard/commit-hash; then
+      VER=`cat /var/dashboard/commit-hash`
+      wget https://codeload.github.com/sicXnull/PantherDashboard/tar.gz/${VER} -O /tmp/latest.tar.gz
+    else
+      wget https://raw.githubusercontent.com/sicXnull/PantherDashboard/${BRANCH}/version -O /tmp/dashboard_latest_ver
+      VER=`cat /tmp/dashboard_latest_ver`
+      wget https://codeload.github.com/sicXnull/PantherDashboard/tar.gz/refs/tags/${VER} -O /tmp/latest.tar.gz
+    fi
     cd /tmp
     if test -s latest.tar.gz; then
       rm -rf /tmp/PantherDashboard-*
-	  
-	  mkdir -p /tmp/PantherDashboard
     
-      tar -xzf latest.tar.gz -C /tmp/PantherDashboard --strip-components=1
-      cd PantherDashboard
+      tar -xzf latest.tar.gz
+      cd PantherDashboard-${VER}
       apt-get update
       apt-get --assume-yes install nginx php-fpm php7.3-fpm ngrep gawk php-cli logrotate netcat jq
 
@@ -30,9 +37,6 @@ if id -nG admin | grep -qw "sudo"; then
       mkdir -p /var/dashboard/logs
       mkdir -p /etc/monitor-scripts
       mkdir -p /var/log/packet-forwarder/
-      mkdir -p /opt/panther-x2/miner_data/
-      mkdir -p /root/helium/overlay
-
 
       cp -r dashboard/* /var/dashboard/
       cp version /var/dashboard/
@@ -41,7 +45,6 @@ if id -nG admin | grep -qw "sudo"; then
        
       cp nginx/snippets/* /etc/nginx/snippets/
       cp nginx/default /etc/nginx/sites-enabled
-      cp settings/* /root/helium/overlay
     
       if ! test -f /var/dashboard/.htpasswd; then
         cp nginx/.htpasswd /var/dashboard/.htpasswd
@@ -53,15 +56,8 @@ if id -nG admin | grep -qw "sudo"; then
         sh -c 'echo www-data ALL=\(ALL\) NOPASSWD: /etc/monitor-scripts/first-load.sh >> /etc/sudoers.d/www-data'
       fi
 
-      # Check if the DH parameters file already exists
-	if [ ! -f /etc/ssl/certs/dhparam.pem ]; then
-		openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
-	fi
-
-	# Check if the self-signed certificate and key files already exist
-	if [ ! -f /etc/ssl/certs/nginx-selfsigned.crt ] || [ ! -f /etc/ssl/private/nginx-selfsigned.key ]; then
-		openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=CN/ST=Panther/L=Panther/O=Panther/CN=localhost" -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
-	fi
+      openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+      openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=CN/ST=Panther/L=Panther/O=Panther/CN=localhost" -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
     
       cp systemd/* /etc/systemd/system/
 
@@ -79,37 +75,30 @@ if id -nG admin | grep -qw "sudo"; then
       chown root:www-data /var/dashboard
       chmod 775 /var/dashboard
       chmod 775 /var/dashboard/logs
-	  systemctl daemon-reload
-	  
-	  
-      if [ condition ]; then
-          bash /etc/monitor-scripts/pantherx-ver-check.sh
-          FILES="systemd/*.timer"
-          for f in $FILES;
-          do
-             name=$(echo $f | sed 's/.timer//' | sed 's/systemd\///')
-             systemctl start $name.timer
-             systemctl enable $name.timer
-             systemctl start $name.service
-          done
 
-          systemctl daemon-reload
-          systemctl enable packet-forwarder-sniffer.service
-          systemctl start packet-forwarder-sniffer.service
+      bash /etc/monitor-scripts/pantherx-ver-check.sh
+      FILES="systemd/*.timer"
+      for f in $FILES;
+      do
+         name=$(echo $f | sed 's/.timer//' | sed 's/systemd\///')
+         systemctl start $name.timer
+         systemctl enable $name.timer
+         systemctl start $name.service
+      done
 
-          systemctl enable nginx
-          systemctl restart nginx
-          bash /etc/monitor-scripts/pubkeys.sh
+      systemctl daemon-reload
+      systemctl enable packet-forwarder-sniffer.service
+      systemctl start packet-forwarder-sniffer.service
 
-          echo 'Success.'
-      elif [ another_condition ]; then
-          echo 'No installation archive found.  No changes made.'
-      else
-          echo 'Error checking if admin user exists.  No changes made.'
-      fi
+      systemctl enable nginx
+      systemctl restart nginx
+      bash /etc/monitor-scripts/pubkeys.sh
+
+      echo 'Success.'
     else
       echo 'No installation archive found.  No changes made.'
     fi
-else
-    echo 'Error checking if admin user exists.  No changes made.'
+  else
+    echo 'Error checking if admin user exists.  No changes made.';
+  fi
 fi
