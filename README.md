@@ -158,5 +158,5 @@ echo 1193f56 > /var/dashboard/commit-hash
 5. Fix the issue that bluetooth cannot be turn on after it running for a long time on some panthers.
 
 ## Contribute ##
-If you find some issues or problems when you use the dahsboard. you are always welcome to submit the issue here: https://github.com/Panther-X/PantherDashboard/issues
+If you find some issues or problems when you use the dahsboard. you are always welcome to submit the issue here: https://github.com/sicXnull/PantherDashboard/issues
 
