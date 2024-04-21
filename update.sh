@@ -1,11 +1,7 @@
 #!/bin/bash
 sudo apt-get -f install --assume-yes
 
-if test -f /var/dashboard/branch; then
-  BRANCH=$(cat /var/dashboard/branch)
-else
-  BRANCH='stock-firmware'
-fi
+BRANCH='stock-firmware'
 
 if id -nG admin | grep -qw "sudo"; then
   rm -rf /tmp/latest.tar.gz
@@ -14,17 +10,16 @@ if id -nG admin | grep -qw "sudo"; then
   echo 'Downloading latest release...' > /var/dashboard/logs/dashboard-update.log
   if test -f /var/dashboard/commit-hash; then
     VER=$(cat /var/dashboard/commit-hash)
-    wget --no-cache https://github.com/sicXnull/PantherDashboard/archive/${VER}.tar.gz -O /tmp/latest.tar.gz
   else
     wget https://raw.githubusercontent.com/sicXnull/PantherDashboard/${BRANCH}/version -O /tmp/dashboard_latest_ver
     VER=$(cat /tmp/dashboard_latest_ver)
-    wget --no-cache https://github.com/sicXnull/PantherDashboard/archive/refs/tags/${VER}.tar.gz -O /tmp/latest.tar.gz
   fi
+  wget --no-cache https://github.com/sicXnull/PantherDashboard/archive/${BRANCH}.tar.gz -O /tmp/latest.tar.gz
   cd /tmp
   if test -s latest.tar.gz; then
     echo 'Extracting contents...' >> /var/dashboard/logs/dashboard-update.log
     tar -xzf latest.tar.gz
-    cd dashboard_latest_ver
+    cd PantherDashboard-${BRANCH}
 
     apt-get update
     # check php7.3-json, need to do it before php-fpm installation
