@@ -1,0 +1,9 @@
+[Unit]
+Description=Mysterium Service
+
+[Service]
+Type=oneshot
+ExecStart=/etc/monitor-scripts/myst.sh
+
+[Install]
+WantedBy=multi-user.target
