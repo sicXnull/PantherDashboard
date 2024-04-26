@@ -22,7 +22,7 @@ This is the Dashboard for Panther X Miner, it can support Panther X1 and Panther
 
 1. Connect via SSH to your miner (either using PuTTY or open cmd and type:  ssh admin@YOURIP)
 2. Enter the admin username and the password you set.
-3. Type the following command: ```wget https://raw.githubusercontent.com/sicXnull/PantherDashboard/stock-firmware/install.sh -O - | sudo bash ```
+3. Type the following command: ```wget https://raw.githubusercontent.com/sicXnull/PantherDashboard/main/install.sh -O - | sudo bash ```
 
 Note: For hackers, You can also install custom version by add the following file before step 3
 
