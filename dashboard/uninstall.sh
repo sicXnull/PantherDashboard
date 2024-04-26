@@ -70,6 +70,7 @@ rm -rf /etc/systemd/system/miner-service-check.timer
 rm -rf /etc/systemd/system/miner-version-check.timer
 rm -rf /etc/systemd/system/miner-version-check.service
 rm -rf /etc/systemd/system/myst.timer
+rm -rf /etc/systemd/system/myst.service
 rm -rf /etc/systemd/system/password-check.service
 rm -rf /etc/systemd/system/password-check.timer
 rm -rf /etc/systemd/system/peer-list-check.service
