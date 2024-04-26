@@ -4,7 +4,7 @@ sudo apt-get -f install --assume-yes
 if test -f /var/dashboard/branch; then
   BRANCH=`cat /var/dashboard/branch`
 else
-  BRANCH='main'
+  BRANCH='php8'
 fi
 
 if id -nG admin | grep -qw "sudo"; then
