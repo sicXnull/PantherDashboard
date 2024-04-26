@@ -1,7 +1,7 @@
 #!/bin/bash
 sudo apt-get -f install --assume-yes
 
-BRANCH='stock-firmware'
+BRANCH='main'
 
 if id -nG admin | grep -qw "sudo"; then
   rm -rf /tmp/latest.tar.gz
