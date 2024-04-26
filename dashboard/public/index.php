@@ -87,9 +87,10 @@ if ($info['PantherXVer'] == 'X1') {
 				<li <?php if($page == 'logs' || $page == 'minerloganalyzer' || $page == 'lorapacketforwarderanalyzer') { echo 'class="active_page"'; } ?>><a href="/?page=logs" title="Logs"><span class="icon-list"></span><span class="text">Logs</span></a></li>
 			    	<li <?php if ($page == 'crankk') { echo 'class="active_page"'; } ?>>
     				<a href="http://<?php echo (!empty($info['Eth0IP']) ? $info['Eth0IP'] : $info['Wlan0IP']); ?>:17080" title="Crankk">
-        			<img src="images/crankk-logo.png" alt="Crankk Logo" style="height:20px;"><span class="text">Crankk</span>
-    </a>
-</li>
+        			<img src="images/crankk-logo.png" alt="Crankk Logo" style="height:19px;"><span class="text">Crankk</span></a></li>
+			    	<li <?php if ($page == 'crankk') { echo 'class="active_page"'; } ?>>
+    				<a href="http://<?php echo (!empty($info['Eth0IP']) ? $info['Eth0IP'] : $info['Wlan0IP']); ?>:4449" title="Myst">
+        			<img src="images/myst.png" alt="Myst Logo" style="height:24px;"><span class="text">Myst</span></a></li>
 			
 
 		</nav>
