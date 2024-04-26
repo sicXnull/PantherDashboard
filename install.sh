@@ -4,7 +4,7 @@ rm /tmp/latest.tar.gz
 if test -f /var/dashboard/branch; then
   BRANCH=`cat /var/dashboard/branch`
 else
-  BRANCH='stock-firmware'
+  BRANCH='main'
 fi
 
 if test -d /var/dashboard; then
