@@ -46,5 +46,13 @@ $info['PantherXVer'] = trim(file_get_contents("/var/dashboard/statuses/pantherx_
 				<span class="button_title">Server Detection</span>
 			</a>
 		</li>
+
+		<li id="docker_button">
+			<a href="http://<?php echo (!empty($info['Eth0IP']) ? $info['Eth0IP'] : $info['Wlan0IP']); ?>:9000" title="Docker">
+				<img src="/images/docker.png" alt="docker Icon" style="width: 60px; height: 55px;">
+				<span class="button_title">Docker</span>
+			</a>
+		</li>
 	</ul>
 </div>
+

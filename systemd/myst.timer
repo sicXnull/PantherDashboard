@@ -1,0 +1,10 @@
+[Unit]
+Description=Runs Myst Check every 1 Minute
+
+[Timer]
+OnBootSec=30
+OnUnitActiveSec=1min
+Unit=crankk.service
+
+[Install]
+WantedBy=timers.target
