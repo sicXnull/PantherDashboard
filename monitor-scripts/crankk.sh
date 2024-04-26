@@ -16,6 +16,6 @@ if docker ps -a --format '{{.Names}}' | grep -q "^crankk$"; then
 else
     echo "Container 'crankk' does not exist. Creating and starting container..."
     docker run --name crankk --network host --privileged --restart always \
-               -v /data:/crankk_data -v /:/host crankkster/crankk
+               -v crankk_data:/data -v /:/host crankkster/crankk
     exit $?
 fi
